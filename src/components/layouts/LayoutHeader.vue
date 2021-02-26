@@ -25,7 +25,8 @@
         </ul>
       </el-col>
     </el-row>
-    <el-dialog v-model="dialog" width="30%">
+    <login-dialog :dialog="dialog" @doClose="doClose"></login-dialog>
+    <!-- <el-dialog v-model="dialog" width="25%">
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -53,7 +54,7 @@
           <el-button type="primary" @click="submitForm">新增</el-button>
         </el-form-item>
       </el-form>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -61,49 +62,22 @@
 import { ref, unref, toRefs, reactive, defineComponent, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import LoginDialog from "../dialog/LoginDialog.vue";
 export default defineComponent({
   props: {},
-  components: {},
+  components: { LoginDialog },
   setup: () => {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
     const pattern = ref(null);
-
     const data = reactive({
       dialog: false,
     });
 
-    // Form
-    const ruleFormsss = ref(null);
-    const ruleForm: any = reactive({
-      account: "",
-      password: "",
-    });
-    const rules = {
-      account: [{ required: true, message: "请输入", trigger: "blur" }],
-      password: [{ required: true, message: "请输入", trigger: "blur" }],
+    const doClose = () => {
+      data.dialog = false;
     };
-    const submitForm = async () => {
-      const form: any = unref(ruleFormsss);
-      if (!form) return;
-      try {
-        await form.validate();
-      } catch (error) {}
-    };
-    const ResetForm = async () => {
-      const form: any = unref(ruleFormsss);
-      try {
-        await form.resetFields();
-      } catch (error) {}
-    };
-
-    watch(
-      () => data.dialog,
-      () => {
-        ResetForm();
-      }
-    );
 
     return {
       ...toRefs(data),
@@ -111,11 +85,7 @@ export default defineComponent({
       router,
       store,
       pattern,
-      ruleForm,
-      ruleFormsss,
-      rules,
-      submitForm,
-      ResetForm,
+      doClose,
     };
   },
 });
