@@ -17,66 +17,84 @@
       </el-col>
       <el-col :lg="16" :md="16" class="hidden-sm-and-down">
         <ul class="member">
-          <li @click="dialog = true">登入</li>
-          <li>註冊</li>
-          <li><i class="fa fa-user"></i>會員中心</li>
-          <li><i class="fa fa-clipboard"></i>訂單</li>
-          <li><i class="fa fa-shopping-cart"></i>購物車</li>
+          <template v-for="item in featureList" :key="item.text">
+            <li
+              v-if="store.state.auth.isLogined ? item.Auth : item.noAuth"
+              @click="memberOperation(item)"
+            >
+              <i v-if="item.icon" :class="item.icon"></i>
+              {{ item.text }}
+            </li>
+          </template>
         </ul>
       </el-col>
     </el-row>
-    <login-dialog :dialog="dialog" @doClose="doClose"></login-dialog>
-    <!-- <el-dialog v-model="dialog" width="25%">
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleFormsss"
-        label-width="auto"
-      >
-        <el-form-item prop="account">
-          <el-input
-            v-model="ruleForm.account"
-            placeholder="郵箱/用戶名/登錄手機"
-          >
-            <template #prepend>
-              <i class="fa fa-user"></i>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="ruleForm.password" placeholder="密碼">
-            <template #prepend>
-              <i class="fa fa-lock"></i>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm">新增</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog> -->
+    <login-dialog
+      :dialog="loginDialog"
+      @doOpen="doOpen('register')"
+      @doClose="doClose('login')"
+    ></login-dialog>
+    <register-dialog
+      :dialog="registerDialog"
+      @doOpen="doOpen('login')"
+      @doClose="doClose('register')"
+    ></register-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, unref, toRefs, reactive, defineComponent, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import useBasicValue from "../../composables/basic/useBasicValue";
 import LoginDialog from "../dialog/LoginDialog.vue";
+import RegisterDialog from "../dialog/RegisterDialog.vue";
 export default defineComponent({
   props: {},
-  components: { LoginDialog },
+  components: { LoginDialog, RegisterDialog },
   setup: () => {
-    const route = useRoute();
-    const router = useRouter();
-    const store = useStore();
+    const { route, router, store } = useBasicValue();
     const pattern = ref(null);
     const data = reactive({
-      dialog: false,
+      loginDialog: false,
+      registerDialog: false,
     });
+    const featureList = ref([
+      { text: "登入", icon: null, noAuth: true, Auth: false },
+      { text: "註冊", icon: null, noAuth: true, Auth: false },
+      { text: "會員中心", icon: "fa fa-user", noAuth: true, Auth: true },
+      { text: "訂單", icon: "fa fa-clipboard", noAuth: true, Auth: true },
+      { text: "購物車", icon: "fa fa-shopping-cart", noAuth: true, Auth: true },
+      { text: "登出", icon: "fa fa-sign-out", noAuth: false, Auth: true },
+    ]);
+    const doOpen = (val: any) => {
+      setTimeout(() => {
+        if (val == "login") {
+          data.loginDialog = true;
+        } else {
+          data.registerDialog = true;
+        }
+      }, 250);
+    };
+    const doClose = (val: any) => {
+      if (val == "login") {
+        data.loginDialog = false;
+      } else {
+        data.registerDialog = false;
+      }
+    };
 
-    const doClose = () => {
-      data.dialog = false;
+    const memberOperation = (item: any) => {
+      const { text } = item;
+      if (store.state.auth.isLogined) {
+        if (text == "登出") {
+          store.commit("auth/REMOVE_AUTH");
+        }
+      } else {
+        if (text != "註冊") {
+          data.loginDialog = true;
+        } else {
+          data.registerDialog = true;
+        }
+      }
     };
 
     return {
@@ -85,6 +103,9 @@ export default defineComponent({
       router,
       store,
       pattern,
+      featureList,
+      memberOperation,
+      doOpen,
       doClose,
     };
   },

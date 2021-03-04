@@ -9,14 +9,32 @@
           <div class="category-container">
             <ul>
               <li
-                v-for="item in categoryList"
+                v-for="item in categoryList.first"
                 :key="item.text"
                 @mouseenter="SetCategory(item)"
               >
                 <p>{{ item.text }}</p>
               </li>
             </ul>
-            <div class="category-detail">{{ currCategory }}</div>
+            <div class="category-detail-wrapper">
+              <!-- {{ currCategory.id }} -->
+              <ul class="category-detail-container">
+                <li
+                  v-for="x in categoryList.second[currCategory.id]"
+                  :key="x.title"
+                >
+                  <div class="left">
+                    <span>{{ x.title }}</span>
+                    <i class="fa fa-angle-right"></i>
+                  </div>
+                  <ul class="right">
+                    <li v-for="y in x.content" :key="y">
+                      <span> {{ y }}</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </el-col>
@@ -129,8 +147,8 @@ export default defineComponent({
       color: #666;
       background: whitesmoke;
       font-size: 0.8em;
-      &:hover .category-detail {
-        display: block !important;
+      &:hover .category-detail-wrapper {
+        display: flex !important;
       }
       > ul {
         padding: 10px 10px;
@@ -147,17 +165,59 @@ export default defineComponent({
         }
       }
     }
-    .category-detail {
+    .category-detail-wrapper {
       display: none;
       position: absolute;
       bottom: 0;
       left: 16.5%;
       width: 50%;
       min-height: 500px;
-      background: whitesmoke;
+      background: white;
       border-left: 1.5px solid rgba($color: #000000, $alpha: 0.1);
       box-shadow: 2px 0 5px rgb(0 0 0 / 30%);
       z-index: 99;
+      .category-detail-container {
+        width: 100%;
+        list-style: none;
+        > li {
+          display: flex;
+          flex-wrap: wrap;
+          width: 90%;
+          padding: 10px 5%;
+          .left {
+            width: 10%;
+            margin-top: 5px;
+            text-align: left;
+            color: #666;
+            > span {
+              margin-right: 5px;
+              font-weight: 700;
+              font-size: 1em;
+              cursor: pointer;
+              &:hover {
+                color: $color-red;
+              }
+            }
+          }
+          .right {
+            width: 90%;
+            list-style: none;
+            text-align: left;
+            > li {
+              display: inline-block;
+              padding: 0 10px;
+              margin-top: 5px;
+              border-left: 1px solid rgba($color: #000000, $alpha: 0.2);
+              > span {
+                &:hover {
+                  color: $color-red;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   .banner-wrapper {

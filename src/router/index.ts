@@ -6,9 +6,10 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  let tmp: any = localStorage.getItem("userData");
-  // console.log(localStorage.getItem("userData"));
-  store.commit("SET_USER_DATA", JSON.parse(tmp));
+  let auth: any = localStorage.getItem("auth");
+  if (auth) {
+    store.commit("auth/RESTORE_AUTH", JSON.parse(auth));
+  }
   next();
 });
 export default router;
