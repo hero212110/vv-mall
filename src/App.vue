@@ -3,6 +3,9 @@
     <el-header>
       <layout-header></layout-header>
     </el-header>
+    <nav>
+      <layout-nav></layout-nav>
+    </nav>
     <el-main>
       <router-view></router-view>
     </el-main>
@@ -12,9 +15,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import LayoutHeader from "@/components/layouts/LayoutHeader.vue";
+import LayoutNav from "@/components/layouts/LayoutNav.vue";
 export default defineComponent({
   name: "App",
-  components: { LayoutHeader },
+  components: { LayoutHeader, LayoutNav },
 });
 </script>
 
@@ -46,7 +50,8 @@ export default defineComponent({
   // line-height: 200px;
 }
 .el-main {
-  background-color: white;
+  // background-color: white;
+  background: rgb(241, 240, 240);
   color: #333;
   text-align: center;
   /* line-height: 160px; */

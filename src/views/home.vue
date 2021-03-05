@@ -3,56 +3,39 @@
     <el-row>
       <el-col :lg="4">
         <div class="category-wrapper">
-          <div class="logo-container">
-            <img src="../assets/images/logo.svg" alt="" />
-          </div>
           <div class="category-container">
             <ul>
               <li
                 v-for="item in categoryList.first"
                 :key="item.text"
-                @mouseenter="SetCategory(item)"
+                @mouseover="SetCategory(item)"
               >
                 <p>{{ item.text }}</p>
               </li>
+              <div v-show="currCategory" class="category-detail-wrapper">
+                <ul class="category-detail-container">
+                  <li
+                    v-for="x in categoryList.second[currCategory.id]"
+                    :key="x.title"
+                  >
+                    <div class="left">
+                      <span>{{ x.title }}</span>
+                      <i class="fa fa-angle-right"></i>
+                    </div>
+                    <ul class="right">
+                      <li v-for="y in x.content" :key="y">
+                        <span> {{ y }}</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </ul>
-            <div class="category-detail-wrapper">
-              <!-- {{ currCategory.id }} -->
-              <ul class="category-detail-container">
-                <li
-                  v-for="x in categoryList.second[currCategory.id]"
-                  :key="x.title"
-                >
-                  <div class="left">
-                    <span>{{ x.title }}</span>
-                    <i class="fa fa-angle-right"></i>
-                  </div>
-                  <ul class="right">
-                    <li v-for="y in x.content" :key="y">
-                      <span> {{ y }}</span>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </el-col>
       <el-col :lg="20">
-        <div class="banner-wrapper">
-          <div class="banner-container">
-            <el-input class="banner-search" placeholder="請輸入...">
-              <template #append>
-                <el-button
-                  style="background: #ffcf27"
-                  icon="el-icon-search"
-                ></el-button>
-              </template>
-            </el-input>
-            <ul class="search-hint">
-              <li v-for="item in hintList" :key="item.text">{{ item.text }}</li>
-            </ul>
-          </div>
+        <div class="carousel-wrapper">
           <div class="carousel-container">
             <el-carousel height="500px">
               <el-carousel-item v-for="item in carouselList" :key="item.img">
@@ -68,24 +51,37 @@
 
     <el-row>
       <el-col :lg="24">
-        <div class="super-title">
-          <span>超級強檔</span>
+        <div class="flash-deal-container">
+          <div class="left">
+            <div class="inner">
+              <h5>京東秒殺</h5>
+              <h6>FLASH DEALS</h6>
+              <div class="flash-icon">
+                <flashSVG style="width: 70px; height: 70px" />
+              </div>
+              <div class="count-text">優惠結束倒數</div>
+              <ul class="count-time">
+                <li>00</li>
+                <li>00</li>
+                <li>00</li>
+              </ul>
+            </div>
+          </div>
+          <div class="right">
+            <ul>
+              <li v-for="item in recomList.flash" :key="item.name">
+                <img :src="item.img" alt="" />
+                <div class="goods-name">
+                  {{ item.name }}
+                </div>
+                <div class="goods-price">
+                  <div class="left">￥{{ item.new_price }}</div>
+                  <div class="right">￥{{ item.old_price }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </el-col>
-
-      <el-col :lg="14">
-        <ul class="super-left">
-          <li v-for="item in superList.left" :key="item.img">
-            <img :src="item.img" alt="" />
-          </li>
-        </ul>
-      </el-col>
-      <el-col :lg="10">
-        <ul class="super-right">
-          <li v-for="item in superList.right" :key="item.img">
-            <img :src="item.img" alt="" />
-          </li>
-        </ul>
       </el-col>
     </el-row>
   </div>
@@ -96,15 +92,16 @@ import useBasicValue from "../composables/basic/useBasicValue";
 import hintJson from "../assets/data/home/hint.json";
 import categoryJson from "../assets/data/home/category.json";
 import carouselJson from "../assets/data/home/carousel.json";
-import superJson from "../assets/data/home/super.json";
+import recomJson from "../assets/data/home/recom.json";
+import flashSVG from "../assets/images/flash.svg";
 export default defineComponent({
-  components: {},
+  components: { flashSVG },
   setup: () => {
     const { route, router, store } = useBasicValue();
     const hintList = ref(hintJson);
     const categoryList = ref(categoryJson);
     const carouselList = ref(carouselJson);
-    const superList = ref(superJson);
+    const recomList = ref(recomJson);
     const data = reactive({
       currCategory: "",
     });
@@ -121,7 +118,7 @@ export default defineComponent({
       hintList,
       categoryList,
       carouselList,
-      superList,
+      recomList,
       SetCategory,
     };
   },
@@ -133,27 +130,19 @@ export default defineComponent({
   position: relative;
   .category-wrapper {
     min-height: 500px;
-    .logo-container {
-      background: whitesmoke;
-      height: 140px;
-      margin-bottom: 5px;
-      > img {
-        height: 100px;
-      }
-    }
     .category-container {
       width: 100%;
       height: 500px;
       color: #666;
-      background: whitesmoke;
+      background: white;
       font-size: 0.8em;
-      &:hover .category-detail-wrapper {
-        display: flex !important;
-      }
       > ul {
         padding: 10px 10px;
         list-style: none;
         text-align: left;
+        &:hover .category-detail-wrapper {
+          display: flex !important;
+        }
         > li {
           padding: 8px 10%;
           margin-bottom: 2px;
@@ -183,16 +172,16 @@ export default defineComponent({
           display: flex;
           flex-wrap: wrap;
           width: 90%;
-          padding: 10px 5%;
+          padding: 10px 5% 10px 4%;
           .left {
-            width: 10%;
+            width: 15%;
             margin-top: 5px;
-            text-align: left;
+            text-align: center;
             color: #666;
             > span {
               margin-right: 5px;
-              font-weight: 700;
-              font-size: 1em;
+              font-weight: 800;
+              font-size: 1.1em;
               cursor: pointer;
               &:hover {
                 color: $color-red;
@@ -200,7 +189,7 @@ export default defineComponent({
             }
           }
           .right {
-            width: 90%;
+            width: 85%;
             list-style: none;
             text-align: left;
             > li {
@@ -220,42 +209,9 @@ export default defineComponent({
       }
     }
   }
-  .banner-wrapper {
+  .carousel-wrapper {
     margin-left: 1%;
     min-height: 500px;
-    .banner-container {
-      min-height: 140px;
-      margin-bottom: 5px;
-      background: whitesmoke;
-      .banner-search {
-        width: 50%;
-        margin-top: 30px;
-      }
-      .search-hint {
-        list-style: none;
-        > li {
-          display: inline;
-          padding-right: 15px;
-          position: relative;
-          font-size: 0.6em;
-          font-weight: 600;
-          color: #666;
-          cursor: pointer;
-          &:hover {
-            color: $color-red;
-          }
-          &:not(:last-child) {
-            &:after {
-              content: "|";
-              position: absolute;
-              top: 0;
-              right: 10%;
-              color: #666;
-            }
-          }
-        }
-      }
-    }
     .carousel-container {
       min-height: 500px;
       .carousel-block {
@@ -271,49 +227,120 @@ export default defineComponent({
       }
     }
   }
-  .super-title {
-    margin: 10px 0 5px 0;
-    min-height: 35px;
-    text-align: center;
-    > span {
-      line-height: 35px;
-      font-weight: 700;
-      font-size: 1.2em;
-    }
-  }
-  .super-left {
-    min-height: 200px;
-    list-style: none;
+  .flash-deal-container {
     display: flex;
-    > li {
-      width: 20%;
-      height: 200px;
-      overflow: hidden;
-      cursor: pointer;
-      > img {
-        width: 99%;
-        height: 200px;
+    min-height: 300px;
+    margin-top: 20px;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.7);
+    @keyframes breath {
+      0% {
+        fill: white;
+      }
+      50% {
+        fill: $color-active;
+      }
+      100% {
+        fill: white;
       }
     }
-  }
-  .super-right {
-    min-height: 200px;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    overflow: hidden;
-    > li {
-      width: 50%;
-      height: 100px;
-      cursor: pointer;
-      &:nth-child(3) {
-        padding-top: 7px;
+    .left {
+      width: 15%;
+      background: #f02b2b;
+      color: #fff;
+      text-align: center;
+      .inner {
+        margin: 20px 5%;
+        > h5 {
+          height: 40px;
+          line-height: 40px;
+          font-size: 32px;
+          font-weight: 400;
+        }
+        > h6 {
+          height: 28px;
+          line-height: 28px;
+          font-size: 19px;
+          font-weight: 400;
+          opacity: 0.6;
+        }
+        .flash-icon {
+          height: 70px;
+          margin: 10px 0 20px 0;
+          > svg {
+            animation: breath 5s infinite;
+            fill: white;
+          }
+        }
+        .count-text {
+          margin: 10px 0;
+        }
+        .count-time {
+          list-style: none;
+          > li {
+            display: inline-block;
+            background: black;
+            margin: 0 5px;
+            padding: 10px 10px;
+            border-radius: 2px;
+          }
+        }
       }
-      &:nth-child(4) {
-        padding-top: 7px;
-      }
-      > img {
+    }
+    .right {
+      width: 85%;
+      background: #fff;
+      > ul {
+        list-style: none;
+        display: flex;
         width: 100%;
+        > li {
+          width: 20%;
+          margin-right: 1%;
+          cursor: pointer;
+          &:hover .goods-name {
+            color: #c81623;
+          }
+          &:hover > img {
+            opacity: 0.8;
+          }
+          &:first-child {
+            margin-left: 1%;
+          }
+          > img {
+            width: 100%;
+            height: 220px;
+          }
+          .goods-name {
+            padding: 0 5%;
+            height: 36px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-size: 14px;
+          }
+          .goods-price {
+            margin: 5px 5% 0 5%;
+            border: 1px solid #f02b2b;
+            min-height: 30px;
+            display: flex;
+            font-weight: 600;
+            .left {
+              width: 50%;
+              line-height: 30px;
+              background: #f02b2b;
+              color: #fff;
+            }
+            .right {
+              width: 50%;
+              line-height: 30px;
+              background: #fff;
+              color: #ccc;
+              text-decoration: line-through;
+            }
+          }
+        }
       }
     }
   }
