@@ -1,0 +1,108 @@
+{
+  "first": [
+    { "id": "1", "text": "3C" },
+    { "id": "2", "text": "家電" },
+    { "id": "3", "text": "美妝個清" },
+    { "id": "4", "text": "保健/食品" },
+    { "id": "5", "text": "服飾/內衣" },
+    { "id": "6", "text": "鞋包/精品" },
+    { "id": "7", "text": "母嬰用品" },
+    { "id": "8", "text": "圖書文具" },
+    { "id": "9", "text": "傢寢運動" },
+    { "id": "10", "text": "日用生活" },
+    { "id": "11", "text": "旅遊戶外" }
+  ],
+  "second": {
+    "1": [
+      { "title": "手機/平板", "content": ["智慧型手機","iPhone","iPad","平板電腦","3C福利品","一般手機","3C門號專區"] },
+      { "title": "手機/平板週邊", "content": ["安卓殼/套","安卓保護貼","手機/平板週邊","手機/平板充電週邊","Apple原廠週邊","Apple週邊","iPad/Mac 保護週邊","行動電源/無線充電","電池/充電電池","旅遊上網卡"] },
+      { "title": "數位週邊", "content": ["穿戴裝置","喇叭/藍牙喇叭","通訊耳機","音樂耳機","語言學習/翻譯機","MP5/MP3"] },
+      { "title": "相機/攝影器材", "content": ["微單眼","單眼相機","數位相機","空拍/攝影機","單眼鏡頭","防潮箱","拍立得/攝影配件","攝影包/腳架/穩定器","鏡頭濾鏡","相機電池","記憶卡"] },
+      { "title": "電腦/筆電", "content": ["筆記型電腦","商用筆記型電腦","品牌桌上型電腦","商用桌上型電腦","DIY組裝電腦","LCD電腦螢幕","筆電包/配件","MacBook/iMac"] },
+      { "title": "電競/遊戲", "content": ["電競筆記型電腦","電競桌機/組裝電腦","電競LCD電腦螢幕","電競週邊","數位加值/遊戲"] },
+      { "title": "資訊週邊", "content": ["微軟軟體","電腦/防毒軟體","外接式硬碟","滑鼠/鍵盤","繪圖/手寫板","電腦週邊/線材","隨身碟"] },
+      { "title": "資訊設備", "content": ["噴墨印表機","雷射印表機","墨水/碳粉匣","標籤機/相印機/其他列印","網路設備/分享器","視訊監控","智能居家/電子鎖","辦公事務/營業設備","插座/延長線","NAS網路硬碟","UPS不斷電系統","企業專區"] },
+      { "title": "電腦組件", "content": ["CPU中央處理器","記憶體","主機板/擴充卡","顯示卡","內接式硬碟","SSD固態硬碟","機殼/電源/裝機配件"] }
+    ],
+    "2": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "3": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "4": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "5": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "6": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "7": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "8": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "9": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "10": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ],
+    "11": [
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] },
+      { "title": "", "content": [] }
+    ]
+  }
+}

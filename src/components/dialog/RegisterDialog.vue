@@ -32,7 +32,7 @@
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="login-btn" type="danger" @click="submitForm">
+        <el-button class="login-btn" type="primary" @click="submitForm">
           登入
         </el-button>
       </el-form-item>
@@ -145,7 +145,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .form-title {
-  color: #e4393c;
+  color:$color-primary;
   font-size: 1.5em;
   font-weight: 600;
   border-bottom: 0.5px solid rgba($color: #000000, $alpha: 0.1);
@@ -156,14 +156,12 @@ export default defineComponent({
   right: 0;
   cursor: pointer;
   &:hover {
-    color: #e4393c !important;
+    color: $color-primary !important;
   }
 }
 .login-btn {
   margin-top: 20px;
   width: 100%;
-  background: #e4393c !important;
-  color: white !important;
   outline: none;
   border: none;
 }
@@ -177,7 +175,7 @@ export default defineComponent({
     &.login {
       margin-left: 10px;
       &:hover {
-        color: #e4393c !important;
+        color: $color-primary !important;
       }
     }
   }

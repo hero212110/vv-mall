@@ -1,93 +1,87 @@
 <template>
   <div class="wrapper">
-    <div class="container">
-      <div class="logo">
-        <img
-          src="https://img3.momoshop.com.tw/ecm/img/online/10/998/00/000/bt_0_243_01/bt_0_243_01_e2.png?t=1614248290490"
-          alt=""
-        />
-      </div>
-      <div class="search-box">
-        <el-input class="banner-search" placeholder="請輸入...">
-          <template #append>
-            <el-button
-              style="background: #ffcf27"
-              icon="el-icon-search"
-            ></el-button>
-          </template>
-        </el-input>
-        <ul class="search-hint">
-          <li v-for="item in hintList" :key="item.text">{{ item.text }}</li>
+    <ul>
+      <li v-for="x in navList.first" :key="x.id">
+        <div>
+          <span>{{ x.text }}</span>
+        </div>
+      </li>
+      <div class="detail-wrapper">
+        <ul class="detail-container">
+          <li></li>
         </ul>
       </div>
-      <div class="event"></div>
-    </div>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, toRefs, reactive, defineComponent } from "vue";
 import useBasicValue from "../../composables/basic/useBasicValue";
-import hintJson from "../../assets/data/home/hint.json";
+import navJson from "../../assets/data/layout/nav.json";
 export default defineComponent({
   props: {},
   components: {},
   setup: () => {
     const { route, router, store } = useBasicValue();
-    const hintList = ref(hintJson);
-    return { route, router, store, hintList };
+    const data = reactive({
+      navList: navJson,
+    });
+    return { ...toRefs(data), route, router, store };
   },
 });
 </script>
 <style lang="scss" scoped>
 .wrapper {
-  height: 150px;
-  min-height: 150px;
-  padding: 0 calc(10% + 20px);
-  //   background: lightblue;
-  background: linear-gradient(rgba(#ffaad5, 0.6), rgba(#ffaad5, 0.2));
-  .container {
-    height: 150px;
+  min-height: 40px;
+  background: #515151;
+  > ul {
+    margin: 0 calc(10% + 20px);
     display: flex;
-    .logo {
-      width: 30%;
-      > img {
-        height: 150px;
-      }
+    list-style: none;
+    position: relative;
+    &:hover .detail-wrapper {
+      display: flex !important;
     }
-    .search-box {
-      width: 40%;
-      .banner-search {
-        width: 100%;
-        margin-top: 50px;
+    > li {
+      width: calc(100% / 11);
+      height: 40px;
+      display: inline-block;
+      color: white;
+      &:nth-child(11) {
+        > div {
+          border-right: 1px solid rgba($color: #fff, $alpha: 0.3);
+        }
       }
-      .search-hint {
-        list-style: none;
-        > li {
-          display: inline;
-          padding-right: 15px;
-          position: relative;
-          font-size: 0.6em;
-          font-weight: 600;
-          color: #666;
-          cursor: pointer;
-          &:hover {
-            color: $color-red;
-          }
-          &:not(:last-child) {
-            &:after {
-              content: "|";
-              position: absolute;
-              top: 0;
-              right: 10%;
-              color: #666;
-            }
-          }
+      &:hover {
+        background: $color-primary;
+      }
+      > div {
+        border-left: 1px solid rgba($color: #fff, $alpha: 0.3);
+        margin: 5px 0;
+        height: 30px;
+        cursor: pointer;
+        > span {
+          line-height: 30px;
         }
       }
     }
-    .event {
-      width: 30%;
+    .detail-wrapper {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 40px;
+      width: 100%;
+      min-height: 500px;
+      background: white;
+      border: 3px solid rgba($color: $color-primary, $alpha: 1);
+      z-index: 99;
+      .detail-container {
+        list-style: none;
+        > li {
+            
+        }
+      }
     }
   }
 }

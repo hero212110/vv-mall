@@ -125,7 +125,7 @@ export default defineComponent({
       position: relative;
       cursor: pointer;
       &:hover {
-        color: $color-active;
+        color: $color-primary;
       }
       //   &:not(:last-child) {
       //     &:after {
@@ -146,7 +146,7 @@ export default defineComponent({
       position: relative;
       cursor: pointer;
       &:hover {
-        color: $color-active;
+        color: $color-primary;
       }
       &:not(:last-child) {
         &:after {

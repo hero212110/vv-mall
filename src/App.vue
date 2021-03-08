@@ -3,7 +3,8 @@
     <el-header>
       <layout-header></layout-header>
     </el-header>
-    <nav>
+    <nav class="el-nav">
+      <layout-banner></layout-banner>
       <layout-nav></layout-nav>
     </nav>
     <el-main>
@@ -15,10 +16,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import LayoutHeader from "@/components/layouts/LayoutHeader.vue";
+import LayoutBanner from "@/components/layouts/LayoutBanner.vue";
 import LayoutNav from "@/components/layouts/LayoutNav.vue";
 export default defineComponent({
   name: "App",
-  components: { LayoutHeader, LayoutNav },
+  components: { LayoutHeader, LayoutBanner, LayoutNav },
 });
 </script>
 
@@ -42,6 +44,12 @@ export default defineComponent({
   text-align: center;
   line-height: 40px;
   height: 40px !important;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+.el-nav {
+  margin-top: 40px;
 }
 .el-aside {
   background-color: #d3dce6;

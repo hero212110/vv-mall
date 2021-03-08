@@ -54,7 +54,7 @@
         <div class="flash-deal-container">
           <div class="left">
             <div class="inner">
-              <h5>京東秒殺</h5>
+              <h5>秒殺商品</h5>
               <h6>FLASH DEALS</h6>
               <div class="flash-icon">
                 <flashSVG style="width: 70px; height: 70px" />
@@ -84,26 +84,59 @@
         </div>
       </el-col>
     </el-row>
+
+    <el-row style="margin-top: 20px">
+      <el-col :lg="24">
+        <p style="font-size: 1.4em; font-weight: 600">-熱銷排行榜-</p>
+        <div class="rank-container">
+          <div class="left">
+            <img
+              src="https://img13.360buyimg.com/babel/jfs/t1/124107/8/13431/184513/5f6b06cdEbb2b4893/f0fc789778fb397a.png.webp"
+              alt=""
+            />
+          </div>
+          <ul class="right">
+            <li v-for="(item, index) in recomList.rank" :key="index">
+              <div class="top">
+                <img :src="item.img" alt="" />
+              </div>
+              <div class="bottom">
+                <div class="num">{{ index + 1 }}</div>
+                <div class="content">
+                  <div class="rate">
+                    <span>{{ item.rate }}</span>
+                  </div>
+                  <div class="txt">
+                    <p>{{ item.txt }}</p>
+                    <p>¥{{ item.price }}</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script lang="ts">
 import { ref, toRefs, defineComponent, reactive } from "vue";
 import useBasicValue from "../composables/basic/useBasicValue";
-import hintJson from "../assets/data/home/hint.json";
 import categoryJson from "../assets/data/home/category.json";
 import carouselJson from "../assets/data/home/carousel.json";
+import hintJson from "../assets/data/home/hint.json";
 import recomJson from "../assets/data/home/recom.json";
 import flashSVG from "../assets/images/flash.svg";
 export default defineComponent({
   components: { flashSVG },
   setup: () => {
     const { route, router, store } = useBasicValue();
-    const hintList = ref(hintJson);
-    const categoryList = ref(categoryJson);
-    const carouselList = ref(carouselJson);
-    const recomList = ref(recomJson);
     const data = reactive({
       currCategory: "",
+      categoryList: categoryJson,
+      carouselList: carouselJson,
+      hintList: hintJson,
+      recomList: recomJson,
     });
 
     const SetCategory = (val: any) => {
@@ -115,10 +148,6 @@ export default defineComponent({
       route,
       router,
       store,
-      hintList,
-      categoryList,
-      carouselList,
-      recomList,
       SetCategory,
     };
   },
@@ -137,7 +166,7 @@ export default defineComponent({
       background: white;
       font-size: 0.8em;
       > ul {
-        padding: 10px 10px;
+        padding: 10px 0 10px 10px;
         list-style: none;
         text-align: left;
         &:hover .category-detail-wrapper {
@@ -148,8 +177,10 @@ export default defineComponent({
           margin-bottom: 2px;
           cursor: pointer;
           &:hover {
-            color: $color-red;
-            background: #d9d9d9;
+            background: $color-primary;
+            color: #fff;
+            // color: $color-primary;
+            // background: #d9d9d9;
           }
         }
       }
@@ -157,13 +188,13 @@ export default defineComponent({
     .category-detail-wrapper {
       display: none;
       position: absolute;
-      bottom: 0;
+      bottom: -3px;
       left: 16.5%;
       width: 50%;
       min-height: 500px;
       background: white;
-      border-left: 1.5px solid rgba($color: #000000, $alpha: 0.1);
-      box-shadow: 2px 0 5px rgb(0 0 0 / 30%);
+      // border-left: 1.5px solid rgba($color: #000000, $alpha: 0.1);
+      border: 3px solid rgba($color: $color-primary, $alpha:1);
       z-index: 99;
       .category-detail-container {
         width: 100%;
@@ -184,7 +215,7 @@ export default defineComponent({
               font-size: 1.1em;
               cursor: pointer;
               &:hover {
-                color: $color-red;
+                color: $color-primary;
               }
             }
           }
@@ -199,7 +230,7 @@ export default defineComponent({
               border-left: 1px solid rgba($color: #000000, $alpha: 0.2);
               > span {
                 &:hover {
-                  color: $color-red;
+                  color: $color-primary;
                   cursor: pointer;
                 }
               }
@@ -338,6 +369,78 @@ export default defineComponent({
               background: #fff;
               color: #ccc;
               text-decoration: line-through;
+            }
+          }
+        }
+      }
+    }
+  }
+  .rank-container {
+    display: flex;
+    min-height: 300px;
+    margin-top: 20px;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.7);
+    .left {
+      width: 15%;
+      background: transparent;
+      > img {
+        padding-right: 5%;
+        width: 95%;
+        height: 100%;
+      }
+    }
+    .right {
+      width: 85%;
+      list-style: none;
+      display: flex;
+      > li {
+        width: 20%;
+        cursor: pointer;
+        transition: 0.2s ease-out;
+        &:hover {
+          transform: translateY(-10px);
+          opacity: 0.8;
+        }
+        &:not(&:last-child) {
+          margin-right: 1%;
+        }
+        display: inline-block;
+        .top {
+          height: 60%;
+          background: lightblue;
+          > img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .bottom {
+          height: 40%;
+          text-align: left;
+          display: flex;
+          .num {
+            width: 20%;
+            font-size: 60px;
+            font-weight: 600;
+            color: #f42d54;
+          }
+          .content {
+            width: 80%;
+            font-size: 12px;
+            .rate {
+              margin-top: 10px;
+              height: 30px;
+              > span {
+                border-radius: 16px;
+                border: 1px solid #f42d54;
+                padding: 5px 10px;
+              }
+            }
+            .txt {
+              > p {
+                &:last-child {
+                  padding-top: 5px;
+                }
+              }
             }
           }
         }

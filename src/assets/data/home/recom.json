@@ -30,5 +30,37 @@
       "new_price": "9268.00",
       "old_price": "9299.00"
     }
+  ],
+  "rank": [
+    {
+      "img": "https://img11.360buyimg.com/babel/s320x320_jfs/t1/157056/28/6/67298/5fe94ff9E91bcfc7f/26cd4a19b1ae69b2.jpg!cc_320x320.webp",
+      "rate": "91%好评",
+      "txt": "小米11 5G 骁龙888 2K AMOLED四曲面柔性屏 1亿像素 55W有线闪充 50W无线闪充 8GB+256GB 蓝色",
+      "price": "4299.00"
+    },
+    {
+      "img": "https://img30.360buyimg.com/babel/s320x320_jfs/t1/159995/28/9824/151997/6040394bE43ceaab0/124eaf54f1b444e9.jpg!cc_320x320.webp",
+      "rate": "99%好评",
+      "txt": "乐高(LEGO)积木 得宝DUPLO智能蒸汽火车2-5岁 10874 生日新年礼物 儿童玩具 男孩女孩大颗粒",
+      "price": "469.00"
+    },
+    {
+      "img": "https://img13.360buyimg.com/babel/s320x320_jfs/t1/145123/25/18121/96932/5fd41c73E7a6acc35/8ee6333140b26bb5.jpg!cc_320x320.webp",
+      "rate": "96%好评",
+      "txt": "西昊/SIHOO 人体工学电脑椅 办公椅可躺 会议椅 电竞椅 椅子家用转椅 学习椅 座椅 多功能调节老板椅",
+      "price": "399.00"
+    },
+    {
+      "img": "https://img13.360buyimg.com/babel/s320x320_jfs/t1705/189/702227414/177982/cc8c12f0/55dab54dN5271c377.jpg!cc_320x320.webp",
+      "rate": "98%好评",
+      "txt": "中国科幻基石丛书：三体（套装1-3册）",
+      "price": "62.80"
+    },
+    {
+      "img": "https://img13.360buyimg.com/babel/s320x320_jfs/t1705/189/702227414/177982/cc8c12f0/55dab54dN5271c377.jpg!cc_320x320.webp",
+      "rate": "98%好评",
+      "txt": "中国科幻基石丛书：三体（套装1-3册）",
+      "price": "62.80"
+    }
   ]
 }
