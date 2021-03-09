@@ -3,7 +3,7 @@
     <el-row type="flex" justify="end">
       <el-col :lg="8" :md="8" :sm="24">
         <ul class="feature">
-          <li><i class="fa fa-home"></i>首頁</li>
+          <li @click="router.push('/')"><i class="fa fa-home"></i>首頁</li>
           <li>
             <el-input
               size="small"

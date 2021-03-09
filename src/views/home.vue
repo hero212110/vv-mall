@@ -8,14 +8,14 @@
               <li
                 v-for="item in categoryList.first"
                 :key="item.text"
-                @mouseover="SetCategory(item)"
+                @mouseover="HoverCategory(item)"
               >
                 <p>{{ item.text }}</p>
               </li>
               <div v-show="currCategory" class="category-detail-wrapper">
                 <ul class="category-detail-container">
                   <li
-                    v-for="x in categoryList.second[currCategory.id]"
+                    v-for="x in categoryList.second[currCategory.order]"
                     :key="x.title"
                   >
                     <div class="left">
@@ -23,7 +23,11 @@
                       <i class="fa fa-angle-right"></i>
                     </div>
                     <ul class="right">
-                      <li v-for="y in x.content" :key="y">
+                      <li
+                        v-for="y in x.content"
+                        :key="y"
+                        @click="SetCategory(y)"
+                      >
                         <span> {{ y }}</span>
                       </li>
                     </ul>
@@ -132,22 +136,34 @@ export default defineComponent({
   setup: () => {
     const { route, router, store } = useBasicValue();
     const data = reactive({
-      currCategory: "",
+      currCategory: { id: "" },
       categoryList: categoryJson,
       carouselList: carouselJson,
       hintList: hintJson,
       recomList: recomJson,
     });
 
-    const SetCategory = (val: any) => {
+    const HoverCategory = (val: any) => {
       data.currCategory = val;
     };
 
+    const SetCategory = (val: any) => {
+      store.commit("category/SET_CATEGORY", {
+        id: data.currCategory.id,
+        sub: val,
+      });
+      router.push({
+        name: "Category",
+        query: { id: data.currCategory.id, sub: val },
+      });
+    };
+    
     return {
       ...toRefs(data),
       route,
       router,
       store,
+      HoverCategory,
       SetCategory,
     };
   },
@@ -194,7 +210,7 @@ export default defineComponent({
       min-height: 500px;
       background: white;
       // border-left: 1.5px solid rgba($color: #000000, $alpha: 0.1);
-      border: 3px solid rgba($color: $color-primary, $alpha:1);
+      border: 3px solid rgba($color: $color-primary, $alpha: 1);
       z-index: 99;
       .category-detail-container {
         width: 100%;
@@ -213,10 +229,6 @@ export default defineComponent({
               margin-right: 5px;
               font-weight: 800;
               font-size: 1.1em;
-              cursor: pointer;
-              &:hover {
-                color: $color-primary;
-              }
             }
           }
           .right {

@@ -3,6 +3,7 @@
     <div class="container">
       <div class="logo">
         <img
+          @click="router.push('/')"
           src="https://img3.momoshop.com.tw/ecm/img/online/10/998/00/000/bt_0_243_01/bt_0_243_01_e2.png?t=1614248290490"
           alt=""
         />
@@ -17,7 +18,10 @@
           <li v-for="item in hintList" :key="item.text">{{ item.text }}</li>
         </ul>
       </div>
-      <div class="event"></div>
+      <div class="event">
+        {{ store.state.category.currCategory }}
+        {{route.name}}
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +46,10 @@ export default defineComponent({
   min-height: 150px;
   padding: 0 calc(10% + 20px);
   //   background: lightblue;
-  background: linear-gradient(rgba($color-primary, 0.6), rgba($color-primary, 0.2));
+  background: linear-gradient(
+    rgba($color-primary, 0.6),
+    rgba($color-primary, 0.2)
+  );
   .container {
     height: 150px;
     display: flex;
@@ -50,6 +57,7 @@ export default defineComponent({
       width: 30%;
       > img {
         height: 150px;
+        cursor: pointer;
       }
     }
     .search-box {

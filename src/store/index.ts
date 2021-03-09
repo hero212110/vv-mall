@@ -1,7 +1,8 @@
 import { createStore } from "vuex";
 import auth from "./modules/auth";
+import category from "./modules/category";
 export default createStore({
-  modules: { auth },
+  modules: { auth, category },
   state: {
     count: 0,
     userData: [],
